@@ -44,7 +44,10 @@ router.patch("/:id", async (req, res) => {
     const graph = await Graph.findOne({ _id: req.params.id });
     if (!graph) return res.status(404).send("Graph does not exits");
 
-    await graph.updateOne({ _id: req.params.id }, req.body);
+    // await graph.updateOne({ _id: req.params.id }, req.body);
+    graph.location = req.body.location;
+    console.log(graph);
+    await graph.save()
     return res.status(200).send("Graph updated");
   } catch (error) {
     console.log(error);
